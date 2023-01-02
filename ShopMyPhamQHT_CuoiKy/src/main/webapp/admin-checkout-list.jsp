@@ -2,6 +2,8 @@
 <%@ page import="qht.shopmypham.com.vn.model.CheckOut" %>
 <%@ page import="qht.shopmypham.com.vn.service.AccountService" %>
 <%@ page import="qht.shopmypham.com.vn.model.Account" %>
+<%@ page import="java.util.Arrays" %>
+<%@ page import="java.util.Collections" %>
 <!DOCTYPE html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -47,7 +49,7 @@
                 >
                     <h2 class="tm-block-title">Danh sách thông báo</h2>
                     <div class="tm-notification-items">
-                        <%
+                        <% Collections.reverse(checkOutList);
                             for (CheckOut co : checkOutList) {
                                 Account acc = AccountService.getAccountById(String.valueOf(co.getIdA()));
                         %>
@@ -79,7 +81,38 @@
             </div>
             <div class="col-sm-12 col-md-12 col-lg-8 col-xl-16 tm-block-col">
                 <div class="tm-bg-primary-dark tm-block tm-block-products">
-                    <h2 class="tm-block-title">Danh sách sản phẩm</h2>
+                    <div style="display: flex; justify-content: space-between">
+                        <h2 class="tm-block-title">Danh sách đơn hàng</h2>
+                        <form class="tm-block-title" action="admin-checkout-search" method="get"
+                              style="border: 1px solid var(--border-color); ">
+                            <% String txtInput1 = (String) request.getAttribute("txtSearch1"); %>
+                            <div class="input-group">
+                                <%if (txtInput1 != null) {%>
+                                <input
+                                        type="text"
+                                        name="id"
+                                        class="form-control"
+                                        placeholder="Nhập mã đơn hàng"
+                                        value="<%=txtInput1%>"
+                                />
+                                <%} else {%>
+                                <input
+                                        type="text"
+                                        name="id"
+                                        class="form-control"
+                                        placeholder="Nhập mã đơn hàng"
+                                />
+                                <%}%>
+                                <div class="input-group-append">
+                                    <button type="submit"
+                                            class="input-group-text bg-transparent text-primary btn"
+                                    >
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                     <div class="tm-product-table-container1">
                         <table class="table table-hover tm-table-small tm-product-table">
                             <thead>
@@ -141,9 +174,13 @@
                                 </b></td>
                                 <td><%=co.getOrderDate()%>
                                 </td>
-                                <td><%=co.getConfirmDate()%>
+                                <td><% if (co.getConfirmDate() != null) {%>
+                                    <%=co.getConfirmDate()%>
+                                    <%}%>
                                 </td>
-                                <td><%=co.getReceivedDate()%>
+                                <td><% if (co.getReceivedDate() != null) {%>
+                                    <%=co.getReceivedDate()%>
+                                    <%}%>
                                 </td>
                                 <% if (co.getIdStatus() == 0) {%>
                                 <td><a href="action-checkout?command=ok&idCk=<%=co.getIdCk()%>" class="btn btn-primary"
