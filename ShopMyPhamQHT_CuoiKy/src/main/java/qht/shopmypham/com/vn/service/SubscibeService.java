@@ -1,6 +1,7 @@
 package qht.shopmypham.com.vn.service;
 
 import qht.shopmypham.com.vn.db.JDBiConnector;
+import qht.shopmypham.com.vn.model.Contact;
 import qht.shopmypham.com.vn.model.Subscibe;
 
 import java.util.List;
@@ -56,4 +57,14 @@ public class SubscibeService {
         );
     }
 
+    public static List<Subscibe> getSubscibeByEmail1(String email) {
+        return JDBiConnector.me().withHandle(h ->
+                h.createQuery("SELECT * FROM subscibe WHERE emailQuest LIKE ? ")
+                        .bind(0, "%" + email + "%")
+                        .mapToBean(Subscibe.class)
+                        .stream()
+                        .collect(Collectors.toList())
+        );
+
+    }
 }
