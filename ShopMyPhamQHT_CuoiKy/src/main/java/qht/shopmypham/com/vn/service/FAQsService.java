@@ -2,6 +2,7 @@ package qht.shopmypham.com.vn.service;
 
 import qht.shopmypham.com.vn.db.JDBiConnector;
 import qht.shopmypham.com.vn.model.FAQs;
+import qht.shopmypham.com.vn.model.Subscibe;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -65,4 +66,14 @@ public class FAQsService {
         );
     }
 
+    public static List<FAQs> getFaqsByQuestion(String question) {
+        return JDBiConnector.me().withHandle(h ->
+                h.createQuery("SELECT * FROM faqs WHERE question LIKE ? ")
+                        .bind(0, "%" + question + "%")
+                        .mapToBean(FAQs.class)
+                        .stream()
+                        .collect(Collectors.toList())
+        );
+
+    }
 }
