@@ -3,6 +3,7 @@ package qht.shopmypham.com.vn.service;
 import qht.shopmypham.com.vn.db.JDBiConnector;
 import qht.shopmypham.com.vn.model.Blog;
 import qht.shopmypham.com.vn.model.BlogOffer;
+import qht.shopmypham.com.vn.model.Product;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -121,4 +122,25 @@ public class BlogService {
         );
     }
 
+    public static List<BlogOffer> getBlogOfferByTopic(String topic) {
+        return JDBiConnector.me().withHandle(h ->
+                h.createQuery("SELECT * FROM blogoffer WHERE topic LIKE ? ")
+                        .bind(0, "%" + topic + "%")
+                        .mapToBean(BlogOffer.class)
+                        .stream()
+                        .collect(Collectors.toList())
+        );
+
+    }
+
+    public static List<Blog> getBlogByTopic(String topic) {
+        return JDBiConnector.me().withHandle(h ->
+                h.createQuery("SELECT * FROM blog WHERE topic LIKE ? ")
+                        .bind(0, "%" + topic + "%")
+                        .mapToBean(Blog.class)
+                        .stream()
+                        .collect(Collectors.toList())
+        );
+
+    }
 }
