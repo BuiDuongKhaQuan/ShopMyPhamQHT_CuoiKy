@@ -2,6 +2,7 @@ package qht.shopmypham.com.vn.service;
 
 import qht.shopmypham.com.vn.db.JDBiConnector;
 import qht.shopmypham.com.vn.model.Account;
+import qht.shopmypham.com.vn.model.Product;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -169,6 +170,17 @@ public class AccountService {
                         .bind(0, idA)
                         .execute()
         );
+    }
+
+    public static List<Account> getAccountByUser(String user) {
+        return JDBiConnector.me().withHandle(h ->
+                h.createQuery("SELECT * FROM account WHERE user LIKE ? ")
+                        .bind(0, "%" + user + "%")
+                        .mapToBean(Account.class)
+                        .stream()
+                        .collect(Collectors.toList())
+        );
+
     }
 
     public static void main(String[] args) {

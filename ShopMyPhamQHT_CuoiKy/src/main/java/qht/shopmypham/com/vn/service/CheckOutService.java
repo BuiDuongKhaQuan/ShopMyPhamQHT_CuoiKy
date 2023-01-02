@@ -2,6 +2,7 @@ package qht.shopmypham.com.vn.service;
 
 import qht.shopmypham.com.vn.db.JDBiConnector;
 import qht.shopmypham.com.vn.model.CheckOut;
+import qht.shopmypham.com.vn.model.Product;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -55,7 +56,7 @@ public class CheckOutService {
         );
     }
 
-    public static void confirmCheckOutByidCk(String idCk,String idAdmin, String confirmDate) {
+    public static void confirmCheckOutByidCk(String idCk, String idAdmin, String confirmDate) {
         JDBiConnector.me().withHandle(h ->
                 h.createUpdate("update checkout set idStatus=?,idAdmin=?, confirmDate = ? where idCk = ?")
                         .bind(0, "1")
@@ -65,7 +66,8 @@ public class CheckOutService {
                         .execute()
         );
     }
-    public static void completeCheckOutByidCk(String idCk,String idAdmin, String receivedDate) {
+
+    public static void completeCheckOutByidCk(String idCk, String idAdmin, String receivedDate) {
         JDBiConnector.me().withHandle(h ->
                 h.createUpdate("update checkout set idStatus=?,idAdmin=?, receivedDate = ? where idCk = ?")
                         .bind(0, "3")
@@ -75,7 +77,8 @@ public class CheckOutService {
                         .execute()
         );
     }
-    public static void canceCheckOutByidCk(String idCk,String idAdmin) {
+
+    public static void canceCheckOutByidCk(String idCk, String idAdmin) {
         JDBiConnector.me().withHandle(h ->
                 h.createUpdate("update checkout set idStatus=?,idAdmin=? where idCk = ?")
                         .bind(0, "5")
@@ -84,6 +87,7 @@ public class CheckOutService {
                         .execute()
         );
     }
+
     public static void addProductToCheckOut(String idp, String quantity, String ida) {
         JDBiConnector.me().withHandle(h ->
                 h.createUpdate("INSERT INTO listproductbycheckout(idP,quantity,idA) " +
@@ -100,6 +104,17 @@ public class CheckOutService {
                         .bind(0, idCk)
                         .execute()
         );
+    }
+
+    public static List<CheckOut> getCheckOutById(String id) {
+        return JDBiConnector.me().withHandle(h ->
+                h.createQuery("SELECT * FROM checkout WHERE idCk LIKE ? ")
+                        .bind(0, "%" + id + "%")
+                        .mapToBean(CheckOut.class)
+                        .stream()
+                        .collect(Collectors.toList())
+        );
+
     }
 
     public static void main(String[] args) {
