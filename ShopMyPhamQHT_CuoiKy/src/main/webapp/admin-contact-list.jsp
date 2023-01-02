@@ -45,7 +45,38 @@
         <div class="row tm-content-row">
             <div class="col-sm-12 col-md-12 col-lg-8 col-xl-16 tm-block-col">
                 <div class="tm-bg-primary-dark tm-block tm-block-products">
-                    <h2 class="tm-block-title">Danh sách liên hệ</h2>
+                    <div style="display: flex; justify-content: space-between">
+                        <h2 class="tm-block-title">Danh sách liên hệ</h2>
+                        <form class="tm-block-title" action="admin-contact-search" method="get"
+                              style="border: 1px solid var(--border-color); ">
+                            <% String txtInput1 = (String) request.getAttribute("txtSearch1"); %>
+                            <div class="input-group">
+                                <%if (txtInput1 != null) {%>
+                                <input
+                                        type="text"
+                                        name="name"
+                                        class="form-control"
+                                        placeholder="Nhập tên"
+                                        value="<%=txtInput1%>"
+                                />
+                                <%} else {%>
+                                <input
+                                        type="text"
+                                        name="name"
+                                        class="form-control"
+                                        placeholder="Nhập tên"
+                                />
+                                <%}%>
+                                <div class="input-group-append">
+                                    <button type="submit"
+                                            class="input-group-text bg-transparent text-primary btn"
+                                    >
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                     <div class="tm-product-table-container1">
                         <table class="table table-hover tm-table-small tm-product-table">
                             <thead>
