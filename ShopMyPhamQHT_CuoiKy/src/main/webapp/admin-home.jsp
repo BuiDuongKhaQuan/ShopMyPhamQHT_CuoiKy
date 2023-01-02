@@ -1,6 +1,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="qht.shopmypham.com.vn.model.*" %>
 <%@ page import="qht.shopmypham.com.vn.service.AccountService" %>
+<%@ page import="java.util.Collections" %>
 <!DOCTYPE html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -101,8 +102,8 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <%
-                            for (int i = checkOutList.size() - 5; i < checkOutList.size(); i++) {
+                        <% Collections.reverse(checkOutList);
+                            for (int i = 0; i < 5; i++) {
                                 String status = "";
                                 if (checkOutList.get(i).getIdStatus() == 0) {
                                     status = "Chờ xác nhận";
