@@ -3,6 +3,7 @@ package qht.shopmypham.com.vn.service;
 import qht.shopmypham.com.vn.db.JDBiConnector;
 
 import qht.shopmypham.com.vn.model.Contact;
+import qht.shopmypham.com.vn.model.Product;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -52,6 +53,17 @@ public class ContactService {
                         .bind(0, idCt)
                         .execute()
         );
+    }
+
+    public static List<Contact> getContactByName(String name) {
+        return JDBiConnector.me().withHandle(h ->
+                h.createQuery("SELECT * FROM contact WHERE fullName LIKE ? ")
+                        .bind(0, "%" + name + "%")
+                        .mapToBean(Contact.class)
+                        .stream()
+                        .collect(Collectors.toList())
+        );
+
     }
 
     public static void main(String[] args) {
