@@ -37,7 +37,38 @@
     <div class="row tm-content-row">
         <div class="col-sm-12 col-md-12 col-lg-8 col-xl-15 tm-block-col">
             <div class="tm-bg-primary-dark tm-block tm-block-products">
-                <h2 class="tm-block-title">Danh sách nội dung</h2>
+                <div style="display: flex; justify-content: space-between">
+                    <h2 class="tm-block-title">Danh sách nội dung</h2>
+                    <form class="tm-block-title" action="admin-blog-search" method="get"
+                          style="border: 1px solid var(--border-color); ">
+                        <% String txtInput = (String) request.getAttribute("txtSearch"); %>
+                        <div class="input-group">
+                            <%if (txtInput != null) {%>
+                            <input
+                                    type="text"
+                                    name="topic"
+                                    class="form-control"
+                                    placeholder="Nhập tiêu đề"
+                                    value="<%=txtInput%>"
+                            />
+                            <%} else {%>
+                            <input
+                                    type="text"
+                                    name="topic"
+                                    class="form-control"
+                                    placeholder="Nhập tiêu đề"
+                            />
+                            <%}%>
+                            <div class="input-group-append">
+                                <button type="submit"
+                                        class="input-group-text bg-transparent text-primary btn"
+                                >
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
                 <div class="tm-product-table-container">
                     <table class="table table-hover tm-table-small tm-product-table">
                         <thead>
@@ -89,7 +120,38 @@
         </div>
         <div class="col-sm-12 col-md-12 col-lg-8 col-xl-14 tm-block-col">
             <div class="tm-bg-primary-dark tm-block tm-block-products">
-                <h2 class="tm-block-title">Danh sách đề xuất</h2>
+                <div style="display: flex; justify-content: space-between">
+                    <h2 class="tm-block-title">Danh sách đề xuất</h2>
+                    <form class="tm-block-title" action="admin-blogOffer-search" method="get"
+                          style="border: 1px solid var(--border-color); ">
+                        <% String txtInput1 = (String) request.getAttribute("txtSearch1"); %>
+                        <div class="input-group">
+                            <%if (txtInput1 != null) {%>
+                            <input
+                                    type="text"
+                                    name="topic"
+                                    class="form-control"
+                                    placeholder="Nhập tiêu đề"
+                                    value="<%=txtInput1%>"
+                            />
+                            <%} else {%>
+                            <input
+                                    type="text"
+                                    name="topic"
+                                    class="form-control"
+                                    placeholder="Nhập tiêu đề"
+                            />
+                            <%}%>
+                            <div class="input-group-append">
+                                <button type="submit"
+                                        class="input-group-text bg-transparent text-primary btn"
+                                >
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
                 <div class="tm-product-table-container">
                     <table class="table table-hover tm-table-small tm-product-table">
                         <thead>
